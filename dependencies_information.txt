@@ -1,0 +1,3 @@
+copy-webpack-plugin (Copia archivos individuales o directorios completos, que ya existen, en el directorio de compilación.)
+css-loader (Los css-loaderinterpreta @importy url()gusta import/require()y los resolverá.)
+html-webpack-plugin (La HtmlWebpackPlugincreación de archivos HTML simplifica para servir a sus paquetes de WebPack. Esto es especialmente útil para paquetes de paquetes web que incluyen un hash en el nombre del archivo que cambia cada compilación. Puede dejar que el complemento genere un archivo HTML por usted, proporcionar su propia plantilla usando plantillas lodash o usar su propio cargador .)
