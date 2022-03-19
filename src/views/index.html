@@ -16,7 +16,7 @@
         
 
 
-        <nav class="navbar navbar-light bg-white px-5 ei-navbar">
+        <nav class="navbar navbar-light bg-white ei-navbar">
             <div class="container ei-container-nav px-5 py-1">
                 <div class="">
                     <h4><span class="ei-navbar-title">I</span>Economic</h4>
@@ -47,16 +47,13 @@
                                     
                                 <div class="col-6 col-sm-6 col-md-12 col-xl-6 text-center">
                                     <p class="card-title fs-4" role="button"><strong>{{item.i_currency_symbol}} {{item.id_value}}</strong></p>
-                                    <small class="align-top text-white-50" >{{item.i_name}}</small><br>
-                                    <small class="align-top text-white-50" title="Última actualización"><i class="bi bi-calendar2-event-fill me-1"></i>{{item.id_date_format}}</small>
-                                    <!--<small class="align-top text-white-50 lh-1" ng-show="search.week"><span ng-show="item.porc_incremento>0">+</span>{{item.porc_incremento}}% esta semana</small>
-                                    <small class="align-top text-white-50 lh-1" ng-show="search.month!=null"><span ng-show="item.porc_incremento>0">+</span>{{item.porc_incremento}}% en {{month_selected.month_label}} {{this_year}}</small>
-                                    <small class="align-top text-white-50 lh-1" ng-show="!search.week && search.month==null"><span ng-show="item.porc_incremento>0">+</span>{{item.porc_incremento}}% en el año {{this_year}}</small>-->
+                                    <small class="align-top text-white" >{{item.i_name}}</small><br>
+                                    <small class="align-top text-white-50 lh-1" title="Última actualización"><i class="bi bi-calendar2-event-fill me-1"></i>{{item.id_date_format}}</small>
                                 </div>
                             </div>
                             
                             
-                              </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,10 +78,10 @@
 
                                             <div class="col-12 col-xl-4 my-1 text-center">
                                                 <div class="btn-group btn-group-sm" role="group" aria-label="Gráfico y tabla con el detalle.">
-                                                    <button type="button" class="btn btn-primary" ng-click="mode='chart'" title="Ver el gráfico">
+                                                    <button type="button" class="btn btn-primary {{(mode=='chart')?'active':''}}" ng-click="mode='chart'" title="Ver el gráfico">
                                                         <i class="bi bi-graph-up me-1"></i> Gráfico
                                                     </button>
-                                                    <button type="button" class="btn btn-primary" ng-click="mode='detail'" title="Ver el detalle">
+                                                    <button type="button" class="btn btn-primary {{(mode=='detail')?'active':''}}" ng-click="mode='detail'" title="Ver el detalle">
                                                         <i class="bi bi-table me-1"></i> Detalle
                                                     </button>
                                                 </div>
@@ -110,7 +107,7 @@
                                             </div>
 
                                             <div class="col-12 col-xl-1 my-1 text-center">
-                                                <button type="submit" class="btn btn-primary btn-icon btn-sm" title="Buscar" ng-click="getIndicators();"><i class="bi bi-search"></i> <span class="d-xl-none d-xxl-none ms-1">Buscar</span></button>
+                                                <button type="submit" class="btn btn-primary btn-icon btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Buscar" ng-click="getIndicators();"><i class="bi bi-search"></i> <span class="d-xl-none d-xxl-none ms-1">Buscar</span></button>
                                             </div>
                                         </div>
                                     </div>                                
@@ -151,10 +148,6 @@
                                                                         </td>
                                                                         <td class="text-center">
                                                                             <span class="fs-6 lh-1"><span ng-show="detail_table.i_currency_symbol!='%'">{{detail_table.i_currency_symbol}}</span> <strong>{{item.id_value_format}}</strong><span ng-show="detail_table.i_currency_symbol=='%'" class="ms-1">{{detail_table.i_currency_symbol}}</span></span>
-                                                                        </td>
-                                                                        <td class="text-center">
-                                                                            <small ng-show="item.porc_incremento>=0" class="text-success fw-bold"><span ng-show="item.porc_incremento>0">+</span>{{item.porc_incremento}}%</small>
-                                                                            <small ng-show="item.porc_incremento<0" class="text-warning fw-bold">{{item.porc_incremento}}%</small>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -202,7 +195,7 @@
         </div>
 
 
-        <div class="fixed-bottom text-center bg-white"><small class="text-secondary ">© 2022 - Desarrollado por <a href="https://github.com/sclaretv" title="GitHub" target="_blank" class="text-decoration-none text-muted">Scarlet Villasana</a></small></div>
+        <div class="fixed-bottom text-center bg-white"><small class="text-secondary ">© 2022 - Desarrollado por <a href="https://scarletvillasana.com/" title="GitHub" target="_blank" class="text-decoration-none text-muted">Scarlet Villasana</a></small></div>
 
     </body>
 </html>

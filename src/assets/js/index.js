@@ -1,5 +1,7 @@
 var myApp = angular.module('myApp',['angular-toArrayFilter']);
 
+
+
 myApp.controller('economic_indicators', ['$scope', '$http', '$filter', '$timeout', function($scope, $http, $filter, $timeout) {
 
     var date_now = new Date();
