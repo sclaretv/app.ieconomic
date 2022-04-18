@@ -6,6 +6,7 @@
 		'username'	 => 'root',
 		'password'	 => '',
 		'database'	 => 'economic_indicators',
+		'httphost'	 => 'localhost/ieconomic_v2/dist',
 		'status'	 => true
 	);
 
@@ -14,13 +15,13 @@
 
 	// access in production
 	$config['access_production'] = array(
-		'servername' => '51.222.153.62',
+		'servername' => 'localhost',
 		'username'	 => 'scarletv_root',
 		'password'	 => '*App*Indicadores123',
 		'database'	 => 'scarletv_economic_indicators',
+		'httphost'	 => 'ieconomic.scarletvillasana.com',
 		'status'	 => false
 	);
 
 	define("ACCESS_PRODUCTION", $config['access_production']);
 	
-?>

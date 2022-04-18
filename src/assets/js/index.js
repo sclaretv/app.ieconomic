@@ -30,7 +30,7 @@ myApp.controller('economic_indicators', ['$scope', '$http', '$filter', '$timeout
         {'month_id':9,'month_label':'Sep'},{'month_id':10,'month_label':'Oct'},{'month_id':11,'month_label':'Nov'},{'month_id':12,'month_label':'Dic'},
     ]
 
-    $scope.search = {'year':$scope.this_year, 'month':$scope.this_month, 'current_week':true};           
+    $scope.search = {'year':$scope.this_year, 'month':$scope.this_month, 'current_week':1};           
     
 
     $scope.getIndicators = function() {
@@ -43,7 +43,8 @@ myApp.controller('economic_indicators', ['$scope', '$http', '$filter', '$timeout
 
         if($scope.search.year!=null){
             $scope.cargando = true;
-            $http.post('http://localhost/ieconomic_v2/src/api_indicators/list',$scope.search).then(function(data) {  
+            $http.post('api_indicators/list',$scope.search).then(function(data) {  
+                
                 if(data.data.main!=null || data.data.daily!=null || data.data.all!=null){
                     $scope.formatData(data.data);                    
                 }
@@ -185,16 +186,20 @@ myApp.controller('economic_indicators', ['$scope', '$http', '$filter', '$timeout
     } 
 
 
+    $scope.getIndicators();
+
     $scope.$watch('search.year', function() {
-        $scope.search.current_week = ($scope.search.year!=$scope.this_year || $scope.search.month!=$scope.this_month)?0:$scope.search.current_week;
+        $scope.search.current_week = ($scope.search.year!=$scope.this_year || $scope.search.month!=$scope.this_month)?0:1;
     });
 
     $scope.$watch('search.month', function() {
-        $scope.search.current_week = ($scope.search.year!=$scope.this_year || $scope.search.month!=$scope.this_month)?0:$scope.search.current_week;
+        $scope.search.current_week = ($scope.search.year!=$scope.this_year || $scope.search.month!=$scope.this_month)?0:1;
     });
 
-
-    $scope.getIndicators();
+    $scope.change_currentweek = function() {
+        $scope.search.year = ($scope.search.year!=$scope.this_year && $scope.search.current_week)?$scope.this_year:$scope.search.year;
+        $scope.search.month = ($scope.search.month!=$scope.this_month && $scope.search.current_week)?$scope.this_month:$scope.search.month;
+    };
 
 
 }]);

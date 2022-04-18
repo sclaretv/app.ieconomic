@@ -62,11 +62,9 @@
             }
 
             $out = ['all'=>$all, 'daily'=>$daily, 'main'=>$main];
-
+            //$out = ['h'=>'aaa'];
+            header('Content-Type: application/json; charset=utf-8');
             echo json_encode($out);
         }
         
     }
-    
-
-?>

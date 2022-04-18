@@ -101,21 +101,21 @@
                                             
                                             <div class="col-6 col-xl-3 my-1">
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" id="view_week" ng-model="search.current_week">
+                                                    <input class="form-check-input" type="checkbox" id="view_week" ng-model="search.current_week" ng-true-value="1" ng-false-value="0" ng-change="change_currentweek();">
                                                     <label class="form-check-label text-truncate" for="view_week"><small>Semana actual</small></label>
                                                 </div>
                                             </div>
 
                                             <div class="col-12 col-xl-1 my-1 text-center">
-                                                <button type="submit" class="btn btn-primary btn-icon btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Buscar" ng-click="getIndicators();"><i class="bi bi-search"></i> <span class="d-xl-none d-xxl-none ms-1">Buscar</span></button>
+                                                <button type="button" class="btn btn-primary btn-icon btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Buscar" ng-click="getIndicators();"><i class="bi bi-search"></i> <span class="d-xl-none d-xxl-none ms-1">Buscar</span></button>
                                             </div>
                                         </div>
                                     </div>                                
                                 </div>
                                 
-                                <div class="row" style="min-height: 412px;">
+                                <div class="row">
                                     <div ng-show="mode=='chart' && detail_chart!=null">
-                                        <div>
+                                        <div class="chart">
                                             <canvas id="myChart"></canvas>
                                         </div>                                        
                                     </div>

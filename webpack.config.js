@@ -20,7 +20,7 @@ module.exports = {
               { from: "./src/config", to: "config" },
               { from: "./src/controllers", to: "controllers" },
               { from: "./src/models", to: "models" },
-              { from: "./src/index.php", to: "index.php" },
+              { from: "./src/autoload.php", to: "autoload.php" },
             ],
         }),
         new MiniCssExtractPlugin({

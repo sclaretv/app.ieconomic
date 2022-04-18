@@ -70,18 +70,32 @@
                 
                 if (!empty($aux[0])) {
                     // create indicator
-                    $params = array(
-                        'i_id' => $aux[0]['i_id'],
-                        'id_value' => $ind['valor'],
-                        'id_date' => date_format(date_create($ind['fecha']), "Y-m-d H:i:s"),
-                        'id_add' => date("Y-m-d H:i:s"),
-                    );
-                    $create = $this->indicators_details_model->create($params);
-                    if ($create) {
+                    $a = null;
+                    $params = [];
+                    $d = $this->indicators_model->get_by_params(array('i_code'=>$ind['codigo'],'id_date'=>date_format(date_create($ind['fecha']), "Y-m-d H:i:s")),true);
+
+                    if (empty($d)) {
+                        $params = array(
+                            'i_id' => $aux[0]['i_id'],
+                            'id_value' => $ind['valor'],
+                            'id_date' => date_format(date_create($ind['fecha']), "Y-m-d H:i:s"),
+                            'id_add' => date("Y-m-d H:i:s"),
+                        );
+                        $a = $this->indicators_details_model->create($params);
+                    } else {
+                        $params = array(
+                            'id_value' => $ind['valor'],
+                            'id_update' => date("Y-m-d H:i:s"),
+                        );
+                        $a = $this->indicators_details_model->update($params, $d[0]['id_id']);
+                    }
+
+                    if ($a) {
                         $out['success'][] = $params;
                     } else {
                         $out['fail'][] = $params;
-                    }
+                    }                          
+                                                          
                 }                
             }
 
@@ -106,35 +120,32 @@
 
 
         // update database with year values
-        public function update_year_values($years){
+        public function update_year_values($year){
             $out = [];
 
             $indicators_db = $this->indicators_model->get_by_params(array(),false);                           
 
             if (!empty($indicators_db)) {
 
-                foreach ($years as $key => $year) {
+                foreach ($indicators_db as $id => $ind_db) {
+                
+                    $indicator_api = $this->_get_year_values($ind_db['i_code'],$year);
 
-                    foreach ($indicators_db as $id => $ind_db) {
+                    if (!empty($indicator_api)) {
+                        foreach ($indicator_api as $ia => $ind_api) {
+                            $params = array(
+                                'i_id' => $ind_db['i_id'],
+                                'id_value' => $ind_api['valor'],
+                                'id_date' => date_format(date_create($ind_api['fecha']), "Y-m-d H:i:s"),
+                                'id_add' => date("Y-m-d H:i:s"),
+                            );
+                            $create = $this->indicators_details_model->create($params);
+                        }
+                    }    
                     
-                        $indicator_api = $this->_get_year_values($ind_db['i_code'],$year);
-
-                        if (!empty($indicator_api)) {
-                            foreach ($indicator_api as $ia => $ind_api) {
-                                $params = array(
-                                    'i_id' => $ind_db['i_id'],
-                                    'id_value' => $ind_api['valor'],
-                                    'id_date' => date_format(date_create($ind_api['fecha']), "Y-m-d H:i:s"),
-                                    'id_add' => date("Y-m-d H:i:s"),
-                                );
-                                $create = $this->indicators_details_model->create($params);
-                            }
-                        }    
-                        
-                        $out[$year][] = $ind_db['i_code'];
-                    }                  
-                    
+                    $out[$year][] = $ind_db['i_code'];
                 }                
+                        
             }
 
             echo json_encode($out);
@@ -161,4 +172,3 @@
         
     }
     
-?>

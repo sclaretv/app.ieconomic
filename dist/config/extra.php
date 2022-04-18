@@ -8,4 +8,3 @@
 
 	define("CURRENCY_SYMBOLS", $config['currency_symbols']);
 	
-?>

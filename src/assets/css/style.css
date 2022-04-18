@@ -113,3 +113,7 @@ canvas {
     border-radius: 20px;       /* roundness of the scroll thumb */
     border: 3px solid #f8f9fa;  /* creates padding around scroll thumb */
 }
+
+.chart {
+    min-height: 412px !important;
+}

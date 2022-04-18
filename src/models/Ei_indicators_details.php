@@ -1,4 +1,3 @@
-
 <?php
 
     class Ei_indicators_details_model extends Connection { 
@@ -28,11 +27,11 @@
             if (!empty($params)) {     
                 
                 $connect = $this->connect();     
+                $a = 'INSERT INTO '.$this->table.' ('.$columns.')  VALUES ('.$params['i_id'].', "'.$params['id_value'].'", "'.$params['id_date'].'", "'.$params['id_add'].'");';
 
                 if($connect){
                     $columns = implode(",", array_keys($params));
-
-                    $result = $this->mysqli->query('INSERT INTO '.$this->table.' ('.$columns.')  VALUES ('.$params['i_id'].', '.$params['id_value'].', "'.$params['id_date'].'", "'.$params['id_add'].'");');
+                    $result = $this->mysqli->query('INSERT INTO '.$this->table.' ('.$columns.')  VALUES ('.$params['i_id'].', "'.$params['id_value'].'", "'.$params['id_date'].'", "'.$params['id_add'].'");');
 
                     if($result){
                         $out = $this->mysqli->insert_id;
@@ -44,7 +43,28 @@
             return $out;
         }
 
+
+        public function update($params = array(), $id_id){
+            
+            $out = null;
+            if (!empty($params)) {     
+                
+                $connect = $this->connect();     
+
+                if($connect){
+
+                    $result = $this->mysqli->query('UPDATE '.$this->table.' SET id_value = "'.$params['id_value'].'", id_update = "'.$params['id_update'].'" WHERE id_id = '.$id_id.';');
+
+                    if($result){
+                        $out = $this->mysqli->affected_rows;
+                    }
+
+                    $this->disconnect();
+                }
+            }
+            return $out;
+        }
+
     
     }
 
-?>
