@@ -37,6 +37,8 @@
             if(!empty($group_by)){
                 $sql .= ' GROUP BY '.$group_by;
             }
+
+            $sql .= ' ORDER BY i.i_id ASC, id.id_date DESC';
             
             $connect = $this->connect();     
             $rows = array();
