@@ -20,8 +20,7 @@
 
                 $params = array(
                     'year' => $datos_post['year'],
-                    'month' => $datos_post['month'],
-                    'current_week' => $datos_post['current_week']
+                    'month' => $datos_post['month']
                 );
                 
                 $data_all = $this->indicators_model->get_by_params($params);                

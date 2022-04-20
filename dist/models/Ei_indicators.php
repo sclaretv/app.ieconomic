@@ -87,12 +87,6 @@
                 }
             }
 
-            if (isset($params['current_week'])) {
-                if ($params['current_week']) {                
-                    $sql .= ' AND YEARWEEK(id.id_date,3)= YEARWEEK(NOW(),3)';
-                }
-            }
-
             if (isset($params['more_recent'])) {
                 if ($params['more_recent']) {
                     $sql .= ' AND id.id_date = (SELECT MAX(id2.id_date) FROM ei_indicators_details AS id2 WHERE id2.i_id = i.i_id)';
