@@ -25,7 +25,7 @@
         }
                             
         
-        public function get_by_params($params = array(), $joins = true, $group_by = null){
+        public function get_by_params($params = array(), $joins = true, $group_by = null, $limit = null){
             
             $sql = 'SELECT * FROM '.$this->table_alias;
             if ($joins) {
@@ -38,8 +38,16 @@
                 $sql .= ' GROUP BY '.$group_by;
             }
 
-            $sql .= ' ORDER BY i.i_id ASC, id.id_date DESC';
+            if ($joins) {
+                $sql .= ' ORDER BY i.i_id ASC, id.id_date DESC';
+            } else {
+                $sql .= ' ORDER BY i.i_id ASC';
+            }
             
+            if(!empty($limit)){
+                $sql .= ' LIMIT '.$limit;
+            }
+
             $connect = $this->connect();     
             $rows = array();
 

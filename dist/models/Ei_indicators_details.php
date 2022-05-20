@@ -27,11 +27,16 @@
             if (!empty($params)) {     
                 
                 $connect = $this->connect();     
-                $a = 'INSERT INTO '.$this->table.' ('.$columns.')  VALUES ('.$params['i_id'].', "'.$params['id_value'].'", "'.$params['id_date'].'", "'.$params['id_add'].'");';
 
                 if($connect){
                     $columns = implode(",", array_keys($params));
-                    $result = $this->mysqli->query('INSERT INTO '.$this->table.' ('.$columns.')  VALUES ('.$params['i_id'].', "'.$params['id_value'].'", "'.$params['id_date'].'", "'.$params['id_add'].'");');
+                    $sql = 'INSERT INTO '.$this->table.' ('.$columns.')  VALUES 
+                    ('.intval($params['i_id']).', 
+                    '.$params['id_value'].', 
+                    "'.$params['id_date'].'", 
+                    "'.$params['id_add'].'");';
+                    
+                    $result = $this->mysqli->query($sql);
 
                     if($result){
                         $out = $this->mysqli->insert_id;

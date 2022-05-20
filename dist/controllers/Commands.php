@@ -59,45 +59,50 @@
         public function update_current_values(){
             $out = [];
             $indicators = $this->_get_current_values();
-
-            unset($indicators['version']);
-            unset($indicators['autor']);
-            unset($indicators['fecha']);
             
-            foreach ($indicators as $key => $ind) {
+            if (!empty($indicators)) {
+                unset($indicators['version']);
+                unset($indicators['autor']);
+                unset($indicators['fecha']);
                 
-                $aux = $this->indicators_model->get_by_params(array('i_code'=>$ind['codigo']),false);
-                
-                if (!empty($aux[0])) {
-                    // create indicator
+                foreach ($indicators as $key => $ind) {
+                    
+                    $ind_fecha = date_format(date_create($ind['fecha']), "Y-m-d H:i:s");
+                    $aux = $this->indicators_model->get_by_params(array('i_code'=>$ind['codigo'], 'id_date'=>$ind_fecha),true,null,1);
+                    
                     $a = null;
                     $params = [];
-                    $d = $this->indicators_model->get_by_params(array('i_code'=>$ind['codigo'],'id_date'=>date_format(date_create($ind['fecha']), "Y-m-d H:i:s")),true);
 
-                    if (empty($d)) {
+                    if (empty($aux[0])) {
+                        // create indicator
+                        $c = $this->indicators_model->get_by_params(array('i_code'=>$ind['codigo']),false,null,1);                        
                         $params = array(
-                            'i_id' => $aux[0]['i_id'],
+                            'i_id' => $c[0]['i_id'],
                             'id_value' => $ind['valor'],
-                            'id_date' => date_format(date_create($ind['fecha']), "Y-m-d H:i:s"),
+                            'id_date' => $ind_fecha,
                             'id_add' => date("Y-m-d H:i:s"),
                         );
-                        $a = $this->indicators_details_model->create($params);
+                        $a = $this->indicators_details_model->create($params);                                                            
                     } else {
-                        $params = array(
-                            'id_value' => $ind['valor'],
-                            'id_update' => date("Y-m-d H:i:s"),
-                        );
-                        $a = $this->indicators_details_model->update($params, $d[0]['id_id']);
-                    }
-
+                        // create indicator
+                        if ($aux[0]['id_value'] != $ind['valor']) {
+                            $params = array(
+                                'i_id' => $aux[0]['i_id'],
+                                'id_value' => $ind['valor'],
+                                'id_date' => $ind_fecha,
+                                'id_add' => date("Y-m-d H:i:s"),
+                            );
+                            $a = $this->indicators_details_model->create($params);
+                        } 
+                    }   
+                    
                     if ($a) {
                         $out['success'][] = $params;
                     } else {
                         $out['fail'][] = $params;
-                    }                          
-                                                          
-                }                
-            }
+                    }  
+                }
+            }            
 
             echo json_encode($out);
         }
